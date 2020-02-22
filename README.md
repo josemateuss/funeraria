@@ -7,4 +7,4 @@ CRUD de um sistema funerario desenvolvido em Java durante a disciplina de Lingua
 * JSF
 * XHTML
 
-José Mateus Pereira Santos – [Linkedin](https://www.linkedin.com//in/josé-mateus-937560106/) – mateus.18.santos@gmail.com
+José Mateus Pereira Santos – [Linkedin](https://www.linkedin.com/in/josé-mateus-937560106/) – mateus.18.santos@gmail.com

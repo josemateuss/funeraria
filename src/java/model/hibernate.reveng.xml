@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="mydb"/>
+  <table-filter match-name="tb_funcionario"/>
+  <table-filter match-name="ta_compra"/>
+  <table-filter match-name="tb_servico"/>
+  <table-filter match-name="tb_responsavel"/>
+  <table-filter match-name="tb_falecido"/>
+  <table-filter match-name="td_funcao"/>
+  <table-filter match-name="tb_cemiterio"/>
+  <table-filter match-name="tb_fornecedor"/>
+  <table-filter match-name="ta_contrato"/>
+  <table-filter match-name="tb_produto"/>
+</hibernate-reverse-engineering>

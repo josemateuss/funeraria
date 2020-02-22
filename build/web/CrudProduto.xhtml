@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Produto</title>
+        <link rel="shortcut icon" type="image/ico" href="rip.png"/>
+    </h:head>
+    <h:body>
+
+        <p:panel header="Produtos">
+            <p:panelGrid columns="2">
+                <p:column>
+                    <h:form id="frmConsulta">  
+
+                        <p:growl id="msgs" showDetail="true"/>
+
+                        <p:panelGrid columns="3">
+                            <p:column>
+                                Nome do Produto:
+                            </p:column>
+                            <p:column>
+                                <p:inputText size="30" maxlength="50" value="#{tbProdutoMB.prod}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Consultar" actionListener="#{tbProdutoMB.consultar()}" update=":frmConsulta, :frmEditar" icon="ui-icon-search"/>
+                            </p:column> 
+                        </p:panelGrid>
+
+                        <p:dataTable id="dtbConsulta" var="reg" value="#{tbProdutoMB.lista}" tableStyle="width:auto;" paginator="true" rows="6">  
+
+                            <p:column headerText="Id">  
+                                <h:outputText value="#{reg.idtProduto}" />  
+                            </p:column>  
+
+
+                            <p:column headerText="Nome">  
+                                <h:outputText value="#{reg.nmeProduto}" />  
+                            </p:column>  
+
+                            <p:column headerText="Descrição">  
+                                <h:outputText value="#{reg.dscProduto}" />
+                            </p:column>
+
+
+                            <p:column headerText="Fornecido por">  
+                                <h:outputText value="#{reg.tbFornecedor.nmeFornecedor}"/>
+                            </p:column>
+
+                            <p:column headerText="Operação">  
+                                <p:commandButton id="btnEditar" update=":frmEditar" icon="ui-icon-pencil" value="Editar">  
+                                    <f:setPropertyActionListener value="#{reg}" target="#{tbProdutoMB.produto}" />  
+                                </p:commandButton>
+                                <p:commandButton id="btnExcluir" update=":frmConsulta" oncomplete="PF('dlgConfExclusaoView').show()" icon="ui-icon-trash" value="Excluir">  
+                                    <f:setPropertyActionListener value="#{reg}" target="#{tbProdutoMB.produto}" />  
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>  
+
+                        <p:commandButton value="Novo" actionListener="#{tbProdutoMB.novo()}" update=":frmEditar" icon="ui-icon-star"/>
+
+                        <p:confirmDialog id="dlgConfExclusao" message="Tem certeza que deseja excluir (#{tbProdutoMB.produto.nmeProduto})?"  
+                                         header="Exclusão de Registro" severity="alert" widgetVar="dlgConfExclusaoView">  
+                            <p:commandButton id="btnConfirm" value="Sim" update=":frmConsulta, :frmEditar" oncomplete="PF('dlgConfExclusaoView').hide()" actionListener="#{tbProdutoMB.excluir()}" />  
+                            <p:commandButton id="btnDecline" value="Não" onclick="PF('dlgConfExclusaoView').hide()" type="button" />   
+                        </p:confirmDialog> 
+                    </h:form>
+
+                </p:column>
+
+                <p:column>
+
+                    <h:form id="frmEditar">
+                        <p:panelGrid id="pngEditar" columns="2">  
+                            <p:column>
+                                <h:outputText value="Nome:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeProduto" value="#{tbProdutoMB.produto.nmeProduto}" size="50" required="true" requiredMessage="Nome do Produto é um campo obrigatório!"/>  
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="Descrição:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputTextarea id="dscProduto" value="#{tbProdutoMB.produto.dscProduto}" maxlength="250" counterTemplate="{0} caracteres restantes." rows="5" cols="30" counter="display" required="True" />
+                                <h:outputText id="display" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Fornecedor:" />  
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton value="Buscar Fornecedor" oncomplete="PF('dlgFornecedor').show();"/>
+                                <p:outputLabel value="#{tbProdutoMB.produto.tbFornecedor.nmeFornecedor}"/>
+                            </p:column>
+
+
+
+                            <p:column>
+                                <p:commandButton id="btnAlterar" update=":frmConsulta, :frmEditar" icon="ui-icon-disk" value="Salvar Alterações"  actionListener="#{tbProdutoMB.alterar()}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton id="btnIncluir" update=":frmConsulta,:frmEditar " icon="ui-icon-disk" value="Salvar Inclusão"  actionListener="#{tbProdutoMB.salvar()}"/>
+                            </p:column>
+
+                        </p:panelGrid>  
+
+                    </h:form> 
+
+                </p:column>
+            </p:panelGrid>
+
+            <p:dialog widgetVar="dlgFornecedor" header="Escolha do Fornecedor" width="400">
+                <h:form>
+                    <p:dataTable value="#{tbProdutoMB.listafk}" var="fornecedor" >
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{fornecedor.nmeFornecedor}"/>
+                        </p:column>
+                        <p:column headerText="Operação">
+                            <p:commandButton value='incluir fornecedor' actionListener="#{tbProdutoMB.incluirFornecedorProduto(fornecedor)}" oncomplete="PF('dlgFornecedor').hide();" update=":frmEditar,:frmConsulta"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+        <p:button outcome="index" value="Voltar ao Menu" />
+        </p:panel>
+    </h:body>
+</html>

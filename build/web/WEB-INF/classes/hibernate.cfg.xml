@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost/mydb</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"/>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping class="model.TaCompra"/>
+    <mapping class="model.TbFalecido"/>
+    <mapping class="model.TdFuncao"/>
+    <mapping class="model.TbFornecedor"/>
+    <mapping class="model.TbResponsavel"/>
+    <mapping class="model.TaContrato"/>
+    <mapping class="model.TbFuncionario"/>
+    <mapping class="model.TbServico"/>
+    <mapping class="model.TbCemiterio"/>
+    <mapping class="model.TbProduto"/>
+  </session-factory>
+</hibernate-configuration>

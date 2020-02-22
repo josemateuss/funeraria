@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Funcionário</title>
+        <link rel="shortcut icon" type="image/ico" href="rip.png"/>
+    </h:head>
+    <h:body>
+
+        <p:panel header="Funcionário">
+            <p:panelGrid columns="2">
+                <p:column>
+                    <h:form id="frmConsulta">  
+
+                        <p:growl id="msgs" showDetail="true"/>
+
+                        <p:panelGrid columns="3">
+                            <p:column>
+                                Nome do Funcionário:
+                            </p:column>
+                            <p:column>
+                                <p:inputText size="30" maxlength="50" value="#{tbFuncionarioMB.func}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Consultar" actionListener="#{tbFuncionarioMB.consultar()}" update=":frmConsulta, :frmEditar" icon="ui-icon-search"/>
+                            </p:column> 
+                        </p:panelGrid>
+
+                        <p:dataTable id="dtbConsulta" var="reg" value="#{tbFuncionarioMB.lista}" tableStyle="width:auto;" paginator="true" rows="6">  
+
+                            <p:column headerText="Id">  
+                                <h:outputText value="#{reg.idtFuncionario}" />  
+                            </p:column>  
+
+
+                            <p:column headerText="Nome">  
+                                <h:outputText value="#{reg.nmeFuncionario}" />  
+                            </p:column>  
+                            
+                            <p:column headerText="Área de Atuação">  
+                                <h:outputText value="#{reg.matFuncionario}"/>
+                            </p:column>
+
+                            <p:column headerText="Matrícula">  
+                                <h:outputText value="#{reg.matFuncionario}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Senha">  
+                                <h:outputText value="#{reg.pwdFuncionario}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Data de Nascimento">  
+                                <h:outputText value="#{reg.dtaNascFuncionario}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Data de Admissão">  
+                                <h:outputText value="#{reg.dtaAdmissaoFuncionario}"/>
+                            </p:column>
+                            
+                            <p:column headerText="E-Mail">  
+                                <h:outputText value="#{reg.emlFuncionario}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Telefone">  
+                                <h:outputText value="#{reg.telFuncionario}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Nome da Função">  
+                                <h:outputText value="#{reg.tdFuncao.nmeFuncao}"/>
+                            </p:column>
+
+                            <p:column headerText="Operação">  
+                                <p:commandButton id="btnEditar" update=":frmEditar" icon="ui-icon-pencil" value="Editar">  
+                                    <f:setPropertyActionListener value="#{reg}" target="#{tbFuncionarioMB.funcionario}" />  
+                                </p:commandButton>
+                                <p:commandButton id="btnExcluir" update=":frmConsulta" oncomplete="PF('dlgConfExclusaoView').show()" icon="ui-icon-trash" value="Excluir">  
+                                    <f:setPropertyActionListener value="#{reg}" target="#{tbFuncionarioMB.funcionario}" />  
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>  
+
+                        <p:commandButton value="Novo" actionListener="#{tbFuncionarioMB.novo()}" update=":frmEditar" icon="ui-icon-star"/>
+
+                        <p:confirmDialog id="dlgConfExclusao" message="Tem certeza que deseja excluir (#{tbFuncionarioMB.funcionario.nmeFuncionario})?"  
+                                         header="Exclusão de Registro" severity="alert" widgetVar="dlgConfExclusaoView">  
+                            <p:commandButton id="btnConfirm" value="Sim" update=":frmConsulta, :frmEditar" oncomplete="PF('dlgConfExclusaoView').hide()" actionListener="#{tbFuncionarioMB.excluir()}" />  
+                            <p:commandButton id="btnDecline" value="Não" onclick="PF('dlgConfExclusaoView').hide()" type="button" />   
+                        </p:confirmDialog> 
+                    </h:form>
+
+                </p:column>
+
+                <p:column>
+
+                    <h:form id="frmEditar">
+                        <p:panelGrid id="pngEditar" columns="2">  
+                            <p:column>
+                                <h:outputText value="Nome do Funcionario:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFuncionario" value="#{tbFuncionarioMB.funcionario.nmeFuncionario}" size="50" required="true" requiredMessage="Nome do Funcionario é um campo obrigatório!"/>  
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="Área de Atuação:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="sglFuncionario" value="#{tbFuncionarioMB.funcionario.funcFuncionario}" size="12" required="true" requiredMessage="Área de Atuação do Funcionario é um campo obrigatório!"/>
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="Matrícula:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFuncionario" value="#{tbFuncionarioMB.funcionario.matFuncionario}" size="50" required="true" requiredMessage="Nome do Funcionario é um campo obrigatório!"/>  
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="Senha:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFuncionario" value="#{tbFuncionarioMB.funcionario.pwdFuncionario}" size="50" required="true" requiredMessage="Nome do Funcionario é um campo obrigatório!"/>  
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="Data de Nascimento:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFuncionario" value="#{tbFuncionarioMB.funcionario.dtaNascFuncionario}" size="50" required="true" requiredMessage="Nome do Funcionario é um campo obrigatório!"/>  
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="Data de Admissão:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFuncionario" value="#{tbFuncionarioMB.funcionario.dtaAdmissaoFuncionario}" size="50" required="true" requiredMessage="Nome do Funcionario é um campo obrigatório!"/>  
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="E-Mail:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFuncionario" value="#{tbFuncionarioMB.funcionario.emlFuncionario}" size="50" required="true" requiredMessage="Nome do Funcionario é um campo obrigatório!"/>  
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="Telefone:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFuncionario" value="#{tbFuncionarioMB.funcionario.telFuncionario}" size="50" required="true" requiredMessage="Nome do Funcionario é um campo obrigatório!"/>  
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Função:" />  
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton value="Buscar Função" oncomplete="PF('dlgFuncao').show();"/>
+                                <p:outputLabel value="#{tbFuncionarioMB.funcionario.tdFuncao.nmeFuncao}"/>
+                            </p:column>
+
+
+
+                            <p:column>
+                                <p:commandButton id="btnAlterar" update=":frmConsulta, :frmEditar" icon="ui-icon-disk" value="Salvar Alterações"  actionListener="#{tbFuncionarioMB.alterar()}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton id="btnIncluir" update=":frmConsulta,:frmEditar " icon="ui-icon-disk" value="Salvar Inclusão"  actionListener="#{tbFuncionarioMB.salvar()}"/>
+                            </p:column>
+
+                        </p:panelGrid>  
+
+                    </h:form> 
+
+                </p:column>
+            </p:panelGrid>
+
+            <p:dialog widgetVar="dlgFuncao" header="Escolha de Função" width="400">
+                <h:form>
+                    <p:dataTable value="#{tbFuncionarioMB.listafk}" var="funcao" >
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{funcao.nmeFuncao}"/>
+                        </p:column>
+                        <p:column headerText="Operação">
+                            <p:commandButton value='incluir função' actionListener="#{tbFuncionarioMB.incluirFuncaoFuncionário(funcao)}" oncomplete="PF('dlgFuncao').hide();" update=":frmEditar,:frmConsulta"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+        <p:button outcome="index" value="Voltar ao Menu" />
+        </p:panel>
+    </h:body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <title>Projeto Funerária</title>
+    <link rel="shortcut icon" type="image/ico" href="rip.png"/>
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: black;
+    background-color: gray;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>CRUD Projeto Funerária</h1>
+</header>
+  
+<nav>
+  <ul>
+    <li><h:link outcome="CrudCemiterio" value="Cemitério" /></li>
+<!--    <li><h:link outcome="CrudFalecido" value="Falecido" /></li>-->
+    <li><h:link outcome="CrudResponsavel" value="Responsável" /></li>
+    <li><h:link outcome="CrudFornecedor" value="Fornecedor" /></li>
+    <li><h:link outcome="CrudProduto" value="Produto" /></li>
+<!--    <li><h:link outcome="CrudFuncionario" value="Funcionário" /></li>-->
+    <li><h:link outcome="CrudFuncao" value="Função"/></li>
+    <li><h:link outcome="CrudServico" value="Serviço" /></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Projeto Sistema Funerário</h1>
+  <p>Nosso projeto se trata de um sistema de gerenciamento funerário, o qual
+      controla e gerencia a empresa. Com informações do falecido, do
+      responsável, controle de estoque e funcionários, ferramentas de
+      produtividade.</p>
+  <p></p>
+  <p>Tem o objetivo de ajudar o empresário e o cliente a fecharem o negócio, 
+      oferecendo um serviço prático dentro de uma compra, como por exemplo, a 
+      escolha do caixão, ornamentos, flores e os demais serviços.</p>
+</article>
+    
+<footer>Copyright &copy; Arthur Vinícius, José Mateus e Rafael Medeiros - Prof:
+    Gilberto Hiragi</footer>
+
+</div>
+
+</body>
+</html>

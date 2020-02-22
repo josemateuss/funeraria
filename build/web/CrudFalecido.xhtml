@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Falecido</title>
+        <link rel="shortcut icon" type="image/ico" href="rip.png"/>
+    </h:head>
+    <h:body>
+
+        <p:panel header="Falecido">
+            <p:panelGrid columns="2">
+                <p:column>
+                    <h:form id="frmConsulta">  
+
+                        <p:growl id="msgs" showDetail="true"/>
+
+                        <p:panelGrid columns="3">
+                            <p:column>
+                                Nome do Falecido:
+                            </p:column>
+                            <p:column>
+                                <p:inputText size="30" maxlength="50" value="#{tbFalecidoMB.fale}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Consultar" actionListener="#{tbFalecidoMB.consultar()}" update=":frmConsulta, :frmEditar" icon="ui-icon-search"/>
+                            </p:column> 
+                        </p:panelGrid>
+
+                        <p:dataTable id="dtbConsulta" var="reg" value="#{tbFalecidoMB.lista}" tableStyle="width:auto;" paginator="true" rows="9">  
+
+                            <p:column headerText="Id">  
+                                <h:outputText value="#{reg.idtFalecido}" />  
+                            </p:column>  
+                            
+                            <p:column headerText="Nome">  
+                                <h:outputText value="#{reg.nmeFalecido}" />  
+                            </p:column>  
+
+                            <p:column headerText="Telefone">  
+                                <h:outputText value="#{reg.telFalecido}"/>
+                            </p:column>   
+                            
+                            <p:column headerText="Telefone">  
+                                <h:outputText value="#{reg.grauFalecido}"/>
+                            </p:column>
+                            
+                            <p:column headerText="CPF">  
+                                <h:outputText value="#{reg.cpfFalecido}"/>
+                            </p:column>
+                            
+                            <p:column headerText="E-Mail">  
+                                <h:outputText value="#{reg.emlFalecido}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Endereço">  
+                                <h:outputText value="#{reg.endFalecido}"/>
+                            </p:column>
+
+                            <p:column headerText="Operação">  
+                                <p:commandButton id="btnEditar" update=":frmEditar" icon="ui-icon-pencil" value="Editar">  
+                                    <f:setPropertyActionListener value="#{reg}" target="#{tbFalecidoMB.falecido}" />  
+                                </p:commandButton>
+                                <p:commandButton id="btnExcluir" update=":frmConsulta" oncomplete="PF('dlgConfExclusaoView').show()" icon="ui-icon-trash" value="Excluir">  
+                                    <f:setPropertyActionListener value="#{reg}" target="#{tbFalecidoMB.falecido}" />  
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>  
+
+                        <p:commandButton value="Novo" actionListener="#{tbFalecidoMB.novo()}" update=":frmEditar" icon="ui-icon-star"/>
+
+                        <p:confirmDialog id="dlgConfExclusao" message="Tem certeza que deseja excluir (#{tbFalecidoMB.falecido.nmeFalecido})?"  
+                                         header="Exclusão de Registro" severity="alert" widgetVar="dlgConfExclusaoView">  
+                            <p:commandButton id="btnConfirm" value="Sim" update=":frmConsulta, :frmEditar" oncomplete="PF('dlgConfExclusaoView').hide()" actionListener="#{tbFalecidoMB.excluir()}" />  
+                            <p:commandButton id="btnDecline" value="Não" onclick="PF('dlgConfExclusaoView').hide()" type="button" />   
+                        </p:confirmDialog> 
+                    </h:form>
+
+                </p:column>
+
+                <p:column>
+
+                    <h:form id="frmEditar">
+                        <p:panelGrid id="pngEditar" columns="2">  
+                            <p:column>
+                                <h:outputText value="Nome do Falecido:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nmeFalecido" value="#{tbFalecidoMB.falecido.nmeFalecido}" size="50" required="true" requiredMessage="Nome do Falecido é um campo obrigatório!"/>  
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="Endereço:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="endFalecido" value="#{tbFalecidoMB.falecido.endFalecido}" size="12" required="false" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="E-Mail" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="emlFalecido" value="#{tbFalecidoMB.falecido.emlFalecido}" size="12" required="false" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Telefone:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="telFalecido" value="#{tbFalecidoMB.falecido.telFalecido}" size="12" required="true" requiredMessage="Telefone do Falecido é um campo obrigatório!"/>
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="CPF:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="cpfFalecido" value="#{tbFalecidoMB.falecido.cpfFalecido}" size="12" required="true" requiredMessage="CPF do Falecido é um campo obrigatório!"/>
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value="Grau:" />  
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="grauFalecido" value="#{tbFalecidoMB.falecido.grauFalecido}" size="12" required="true" requiredMessage="Grau do Falecido é um campo obrigatório!"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton id="btnAlterar" update=":frmConsulta, :frmEditar" icon="ui-icon-disk" value="Salvar Alterações"  actionListener="#{tbFalecidoMB.alterar()}" ajax="true"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton id="btnIncluir" update=":frmConsulta,:frmEditar " icon="ui-icon-disk" value="Salvar Inclusão"  actionListener="#{tbFalecidoMB.salvar()}" ajax="true"/>
+                            </p:column>
+
+                        </p:panelGrid>  
+
+                    </h:form> 
+
+                </p:column>
+            </p:panelGrid>
+        </p:panel>
+        <p:button outcome="index" value="Voltar ao Menu" />
+    </h:body>
+</html>
